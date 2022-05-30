@@ -19,7 +19,7 @@ def read_excel():
         office_file.load_key(password=passwd)
         office_file.decrypt(decrypted_workbook)
 
-    df = pd.read_excel(decrypted_workbook, sheet_name='df_data', index_col=0)
+    df = pd.read_excel(decrypted_workbook, sheet_name='df_data', index_col=0, engine='openpyxl')
     return df
 
 
