@@ -2,16 +2,26 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import io
+import msoffcrypto
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.title('Asia Market Analysis for PP')
-uploaded_file = st.file_uploader("please upload pre-engineered df_data.csv here")
+
+passwd = st.secrets['passwd']
 
 @st.cache(allow_output_mutation=True)
-def read_data_1():
-    data = pd.read_csv(uploaded_file, index_col=0)
-    return data
+def read_excel():
+    decrypted_workbook = io.BytesIO()
+    with open('../data2/df_data.xlsx', 'rb') as file:
+        office_file = msoffcrypto.OfficeFile(file)
+        office_file.load_key(password=passwd)
+        office_file.decrypt(decrypted_workbook)
+
+    df = pd.read_excel(decrypted_workbook, sheet_name='df_data', index_col=0)
+    return df
+
 
 @st.cache
 def read_data_a():
@@ -25,7 +35,7 @@ def read_data_a():
 
     return preservative, antioxidant, chelating, evonik, tsne, intermediate
 
-df_data = read_data_1()
+df_data = read_excel()
 df_preservative, df_antioxidant, df_chelating, df_evonik, df_tsne, df_intermediate = read_data_a()
 
 df_data.fillna('no', inplace=True)
@@ -341,6 +351,3 @@ with st.expander('see more'):
             st.text(sub)
             st.text(data_pf[data_pf['Class'] == sub]['p_system'].value_counts()[:5])
             st.write()
-
-
-
