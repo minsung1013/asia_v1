@@ -25,10 +25,10 @@ def read_excel():
 
 @st.cache
 def read_data_a():
-    preservative = pd.read_csv('./data2/df_preservative.csv', index_col=0)
-    antioxidant = pd.read_csv('./data2/df_antioxidant.csv', index_col=0)
-    chelating = pd.read_csv('./data2/df_chelating.csv', index_col=0)
-    evonik = pd.read_csv('./data2/df_evonik.csv', index_col=0)
+    preservative = pd.read_csv('./data/df_preservative.csv', index_col=0)
+    antioxidant = pd.read_csv('./data/df_antioxidant.csv', index_col=0)
+    chelating = pd.read_csv('./data/df_chelating.csv', index_col=0)
+    evonik = pd.read_csv('./data/df_evonik.csv', index_col=0)
 
     tsne = pd.read_csv('./data2/df_tsne.csv', index_col=0)
     intermediate = pd.read_pickle('./data2/df_intermediate.pkl')
@@ -146,6 +146,7 @@ with st.expander('see more'):
 
 def plot_2 (data, size=(10,4), max=10):
     st.subheader('Most frequent')
+    data = data.drop('Year', axis=1)
     sr_sum = data.sum(axis=0).sort_values(ascending=False)[:max]
 
     fig, ax = plt.subplots(figsize=size)
@@ -159,8 +160,8 @@ def plot_2 (data, size=(10,4), max=10):
 
 def plot_3 (data1, data2, max=10):
     st.subheader('Trend')
-    columns = data2.sum(axis=0).sort_values(ascending=False).index[:max]
-    data2.loc['Year'] = data1['Year']
+    columns = data2.sum(axis=0).sort_values(ascending=False).index[1:max]
+    # data2['Year'] = data1['Year']
     df_group = data2.groupby('Year')[columns].sum().T
     st.table(df_group)
     df_group = df_group/data2.groupby('Year').size()*100
