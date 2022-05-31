@@ -22,7 +22,6 @@ def read_excel():
     df = pd.read_excel(decrypted_workbook, sheet_name='df_data', index_col=0, engine='openpyxl')
     return df
 
-
 @st.cache
 def read_data_a():
     preservative = pd.read_csv('./data/df_preservative.csv', index_col=0)
@@ -324,8 +323,7 @@ def plot_cluster_2(tsne, df_b, key_b, tsne_sub, mask, key_f, size=10, a=0.1):
 
     return fig
 
-st.pyplot(plot_cluster_2(df_tsne, df_data, 'Class', tsne, mask_pf, 'Target', size=25, a=0.3))
-
+# st.pyplot(plot_cluster_2(df_tsne, df_data, 'Class', tsne, mask_pf, 'Target', size=25, a=0.3))
 
 st.header('Market')
 with st.expander('see more'):
