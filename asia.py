@@ -160,7 +160,7 @@ def plot_2 (data, size=(10,4), max=10):
 def plot_3 (data1, data2, max=10):
     st.subheader('Trend')
     columns = data2.sum(axis=0).sort_values(ascending=False).index[:max]
-    data2['Year'] = data1['Year']
+    data2.loc[:,'Year'] = data1['Year']
     df_group = data2.groupby('Year')[columns].sum().T
     st.table(df_group)
     df_group = df_group/data2.groupby('Year').size()*100
