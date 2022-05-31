@@ -157,7 +157,7 @@ def plot_2 (data, size=(10,4), max=10):
     plt.xticks(rotation=90)
     return fig
 
-def plot_3 (data1, data2, max=10):
+def plot_3 (data2, max=10):
     st.subheader('Trend')
     columns = data2.sum(axis=0).sort_values(ascending=False).index[1:max]
     # data2['Year'] = data1['Year']
@@ -171,19 +171,19 @@ def plot_3 (data1, data2, max=10):
 st.header('Preservative')
 with st.expander('see more'):
     st.pyplot(plot_2(preservative, max=10))
-    st.pyplot(plot_3(data, preservative))
+    st.pyplot(plot_3(preservative))
     st.pyplot(plot_1(data, 'p_system', max=10))
 
 st.header('Antioxidant')
 with st.expander('see more'):
     st.pyplot(plot_2(antioxidant, max=10))
-    st.pyplot(plot_3(data, antioxidant))
+    st.pyplot(plot_3(antioxidant))
     st.pyplot(plot_1(data, 'a_system', max=10))
 
 st.header('Chelating_Agent')
 with st.expander('see more'):
     st.pyplot(plot_2(chelating, max=10))
-    st.pyplot(plot_3(data, chelating))
+    st.pyplot(plot_3(chelating))
     st.pyplot(plot_1(data, 'c_system', max=10))
 
 #====================================================================================================
