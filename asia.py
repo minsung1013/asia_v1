@@ -14,7 +14,7 @@ passwd = st.secrets['passwd']
 @st.cache(allow_output_mutation=True)
 def read_excel():
     decrypted_workbook = io.BytesIO()
-    with open('./data2/df_data.xlsx', 'rb') as file:
+    with open('./data/df_data.xlsx', 'rb') as file:
         office_file = msoffcrypto.OfficeFile(file)
         office_file.load_key(password=passwd)
         office_file.decrypt(decrypted_workbook)
@@ -30,8 +30,8 @@ def read_data_a():
     chelating = pd.read_csv('./data/df_chelating.csv', index_col=0)
     evonik = pd.read_csv('./data/df_evonik.csv', index_col=0)
 
-    tsne = pd.read_csv('./data2/df_tsne.csv', index_col=0)
-    intermediate = pd.read_pickle('./data2/df_intermediate.pkl')
+    tsne = pd.read_csv('./data/df_tsne.csv', index_col=0)
+    intermediate = pd.read_pickle('./data/df_intermediate.pkl')
 
     return preservative, antioxidant, chelating, evonik, tsne, intermediate
 
